@@ -13,5 +13,22 @@ CHIP RAM512 {
     OUT out[16];
 
     PARTS:
-    //// Replace this comment with your code.
+    DMux8Way(in=true, sel=address[6..8], a=r1, b=r2, c=r3, d=r4, e=r5, f=r6, g=r7, h=r8);
+    And(a=r1, b=load, out=r1e);
+    And(a=r2, b=load, out=r2e);
+    And(a=r3, b=load, out=r3e);
+    And(a=r4, b=load, out=r4e);
+    And(a=r5, b=load, out=r5e);
+    And(a=r6, b=load, out=r6e);
+    And(a=r7, b=load, out=r7e);
+    And(a=r8, b=load, out=r8e);
+    RAM64(in=in, load=r1e, address=address[0..5], out=out1);
+    RAM64(in=in, load=r2e, address=address[0..5], out=out2);
+    RAM64(in=in, load=r3e, address=address[0..5], out=out3);
+    RAM64(in=in, load=r4e, address=address[0..5], out=out4);
+    RAM64(in=in, load=r5e, address=address[0..5], out=out5);
+    RAM64(in=in, load=r6e, address=address[0..5], out=out6);
+    RAM64(in=in, load=r7e, address=address[0..5], out=out7);
+    RAM64(in=in, load=r8e, address=address[0..5], out=out8);
+    Mux8Way16(a=out1, b=out2, c=out3, d=out4, e=out5, f=out6, g=out7, h=out8, sel=address[6..8], out=out);
 }
